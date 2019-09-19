@@ -31,16 +31,16 @@ class Threaded_Ambulance(threading.Thread):
         while True:
             self.channel.start_consuming()
             time.sleep(1)
-
-
-if __name__ == "__main__":
-    messages = []
-    td = Threaded_Ambulance(messages)
-    td.setDaemon(False)
-    td.start()
-    i = 0
-    while i < 100000:
-        print("here")
-        time.sleep(5)
-        print(messages)
-        i += 1
+#
+#
+# if __name__ == "__main__":
+#     messages = []
+#     td = Threaded_Ambulance(messages)
+#     td.setDaemon(False)
+#     td.start()
+#     i = 0
+#     while i < 100000:
+#         print("here")
+#         time.sleep(5)
+#         print(messages)
+#         i += 1
