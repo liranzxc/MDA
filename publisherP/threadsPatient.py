@@ -8,7 +8,7 @@ from time import sleep
 
 class PatientThread(Thread):
 
-    def __init__(self, max_patient, t_zero, ran_from, ran_to, patient_type,probability):
+    def __init__(self, max_patient, t_zero, ran_from, ran_to, patient_type, probability_from, probability_to):
         ''' Constructor. '''
         Thread.__init__(self)
         self.max_patient = max_patient
@@ -18,13 +18,15 @@ class PatientThread(Thread):
         self.patient_type = patient_type
         self.current_patients = 0
         self.patient = {
-          "id" : 0 ,
-          "type"  : '',
-          "tZero" : 0,
-          'probability' : 0 ,
-          "cur_time" : 0 ,
+            'id' : 0 ,
+            'type'  : '',
+            'tZero' : 0,
+            'probability' : 0 ,
+            'cur_time' : 0 ,
+            "in_ambulance": False,
         }
-        self.probability = probability #Patient's chance to live
+        self.probability_from = probability_from #for random probability
+        self.probability_to = probability_to #for random probability
         self.current_time = t_zero
         self.channel = ''
 
@@ -51,13 +53,15 @@ class PatientThread(Thread):
             # Changing patient Details
             self.patient['id'] = str(uuid.uuid1())
             self.patient['type'] = self.patient_type
-            self.patient['tZero'] = 0
-            self.patient['probability'] = random.choice(self.probability)
+            self.patient['tZero'] = self.t_zero
+            print(self.probability_from)
+            print(self.probability_to)
+            self.patient['probability'] = random.randint(self.probability_from, self.probability_to)
             time_to_send = (random.randint(self.ran_from, self.ran_to) / 10)
             sleep(time_to_send)
             self.current_time = self.current_time + time_to_send
             self.patient['cur_time'] = self.current_time
-            self.publish_patient(json.dumps(self.patient))
+            # self.publish_patient(json.dumps(self.patient))
             print(json.dumps(self.patient))
             self.current_patients += 1
         connection.close()
