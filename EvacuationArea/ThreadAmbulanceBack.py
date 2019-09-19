@@ -9,7 +9,7 @@ class ThreadAmbulanceBack(Thread):
     def __init__(self, ambulance, current_time):
         ''' Constructor. '''
         Thread.__init__(self)
-        self.ambulance = json.loads(ambulance.decode('utf-8'))
+        self.ambulance = ambulance
         self.current_time = current_time
         self.channel = ''
 
@@ -34,6 +34,6 @@ class ThreadAmbulanceBack(Thread):
         #sending ambulance to queue
         self.current_time += 10
         self.ambulance['tCurrent'] = self.current_time
-        self.publish_patient(json.dumps(self.ambulance))
+        self.publish_ambulance(json.dumps(self.ambulance))
 
         connection.close()

@@ -3,7 +3,7 @@ import random, pika, operator
 
 # from inAmbulance import Threaded_Ambulance
 # from inPatient import Threaded_Patient
-#from ThreadAmbulanceBack import ThreadAmbulanceBack
+from EvacuationArea.ThreadAmbulanceBack import *
 # from TreatmentConsumer import UpdateProbability
 #
 # ambulances = []
@@ -26,7 +26,6 @@ import random, pika, operator
 class Evan:
     def random_evacuation(self,ambulances,u_p,non_u_p,dead_p,currentTime):
         patient = None
-
         if ambulances:
             ambulance = random.choice(ambulances)
             if ambulance['type'] is "ALS":
@@ -51,7 +50,7 @@ class Evan:
                     dead_p.remove(patient)
                 return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
                 return_ambulance.start()
-                UpdateProbability(u_p, non_u_p, dead_p, 0)
+#                UpdateProbability(u_p, non_u_p, dead_p, 0)
 
 
     def fifo(self,ambulances,patients):
