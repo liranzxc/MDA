@@ -94,6 +94,26 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
             selected = DEAD_U_patients[0]
             DEAD_U_patients.remove(selected)
 
+    elif Model == "FULL-CAPACITY":
+
+        U_patients_Min = { probability : 1.0}
+        Non_U_patients_Min = { probability : 1.0}
+
+        if (len(U_patients) > 0 ):
+            U_patients_Min = min(U_patients, key=lambda x: x['probability'])
+        if(len(Non_U_patients) > 0 ):
+            Non_U_patients_Min = min(Non_U_patients, key=lambda x: x['probability'])
+
+        if(U_patients_Min < Non_U_patients_Min):
+            selected = U_patients_Min
+            U_patients.remove(selected)
+        else:
+            selected = Non_U_patients_Min
+            Non_U_patients.remove(selected)
+
+        if(selected["probability"] == 1.0):
+            selected == {}
+
     if(selected != {}):
         channel.queue_declare(queue='Patients_need_evac_queue', durable=True)
 
