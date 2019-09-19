@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b4364b4-9ea0-423e-8b15-00457af4a86d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/TreatmentsArea/TreamentConsumer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TreatmentsArea/publisher_liran_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TreatmentsArea/TreamentConsumer.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreatmentsArea/TreamentConsumer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/testPika.py" beforeDir="false" afterPath="$PROJECT_DIR$/shared/testPika.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,6 +51,35 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="testPika" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MDA" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/shared" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shared/testPika.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.testPika" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -64,7 +93,7 @@
       <workItem from="1568450682950" duration="1399000" />
       <workItem from="1568453748741" duration="7000" />
       <workItem from="1568453795768" duration="18000" />
-      <workItem from="1568890259114" duration="6043000" />
+      <workItem from="1568890259114" duration="7883000" />
     </task>
     <task id="LOCAL-00001" summary="image">
       <created>1568890569423</created>
@@ -80,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568892112582</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="THREADMENTS">
+      <created>1568897988129</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1568897988129</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,6 +136,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="image" />
     <MESSAGE value="add models" />
-    <option name="LAST_COMMIT_MESSAGE" value="add models" />
+    <MESSAGE value="THREADMENTS" />
+    <option name="LAST_COMMIT_MESSAGE" value="THREADMENTS" />
   </component>
 </project>

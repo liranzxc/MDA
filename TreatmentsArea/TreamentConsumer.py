@@ -2,6 +2,7 @@
 import pika
 import time, threading
 import json
+import random
 
 class ThreamentWorker(threading.Thread):
     def callback(self, ch, method, properties, body):
@@ -36,6 +37,13 @@ class ThreamentWorker(threading.Thread):
         self.channel.start_consuming()
 
 
+
+def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model):
+    if(Model == 'Random'):
+
+
+
+
 if __name__ == "__main__":
     U_patients = []
     Non_U_patients = []
@@ -45,13 +53,13 @@ if __name__ == "__main__":
     td.setDaemon(False)
     td.start()
 
-    TIME_de
-
+    TIME_DECISION = 1
     i = 0
-    while i<1000000:
+    while True:
         print(U_patients)
         print(Non_U_patients)
         print(DEAD_U_patients)
-        time.sleep(5)
-        i=+1
+        time.sleep(TIME_DECISION)
+
+
 
