@@ -29,9 +29,10 @@ def increment_time():
 
 
 def thread_function(ambulances,u_p,non_u_p,dead_p):
-    currentTime = read_value()
+    global timer
+    currentTime = timer
     while True:
-        time.sleep(1)
+        time.sleep(1) # each 1 min  make des
         Evan.random_evacuation({},ambulances,u_p,non_u_p,dead_p,currentTime)
 
 if __name__ == "__main__":
@@ -102,7 +103,7 @@ if __name__ == "__main__":
 
     ambulance_thread.start()
     patient_thread.start()
-
+    #
     x = threading.Thread(target=thread_function,args=(ambulances,U_patients_env,Non_U_patients_env,DEAD_U_patients_env))
     x.start()
 

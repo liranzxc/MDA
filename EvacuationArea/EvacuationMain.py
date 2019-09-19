@@ -24,9 +24,7 @@ import random, pika, operator
 
 
 class Evan:
-    currentTime = 0
-    def random_evacuation(self,ambulances,u_p,non_u_p,dead_p):
-        currentTime += 1
+    def random_evacuation(self,ambulances,u_p,non_u_p,dead_p,currentTime):
         if ambulances:
             ambulance = random.choice(ambulances)
             if ambulance['type'] is "ALS":
@@ -41,14 +39,16 @@ class Evan:
                     patient = random.choice(non_u_p)
                     # non_u_p[patient]['leave'] = currentTime
 
-            # print("patient %r in ambulance %r left in time %r" %(patient, ambulance, currentTime))
             ambulances.remove(ambulance)
-            try:
-                non_u_p.remove(patient)
+
+            if (patient["type"] == 'u'):
                 u_p.remove(patient)
+            if (patient["type"] == 'n'):
+                non_u_p.remove(patient)
+            if (patient["type"] == 'd'):
                 dead_p.remove(patient)
-            except:
-                print("maybe not deleted")
+
+
             return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
             return_ambulance.start()
             UpdateProbability(u_p, non_u_p, dead_p, 0)

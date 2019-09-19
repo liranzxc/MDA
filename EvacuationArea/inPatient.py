@@ -9,7 +9,6 @@ class Threaded_Patient(threading.Thread):
         body = json.loads(body.decode('utf-8')) # decode json
         print(" [x] Received %r" % body)
         print("append to message array")
-        body = json.loads(body.decode('utf-8'))  # decode json
         if (body["type"] == 'u'):
             self.u_p.append(body)
         if (body["type"] == 'n'):
