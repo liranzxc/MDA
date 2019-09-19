@@ -44,13 +44,11 @@ class Evan:
                 ambulances.remove(ambulance)
                 if (patient["type"] == 'u'):
                     u_p.remove(patient)
-                    print('patient: %r in ambulance %r left in time %r' % (patient, ambulance, currentTime))
                 if (patient["type"] == 'n'):
                     non_u_p.remove(patient)
-                    print('patient: %r in ambulance %r left in time %r' % (patient, ambulance, currentTime))
                 if (patient["type"] == 'd'):
                     dead_p.remove(patient)
-                    print('patient: %r in ambulance %r left in time %r' % (patient, ambulance, currentTime))
+                print('patient: %r in ambulance %r left in time %r' % (patient, ambulance, currentTime))
                 return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
                 return_ambulance.start()
 #                UpdateProbability(u_p, non_u_p, dead_p, 0)
