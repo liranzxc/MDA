@@ -78,10 +78,13 @@ if __name__ == "__main__":
     td.start()
 
     ambulances = []
-    patients = []
+
+    U_patients_env = []
+    Non_U_patients_env = []
+    DEAD_U_patients_env = []
 
     ambulance_thread = Threaded_Ambulance(ambulances)
-    patient_thread = Threaded_Patient(patients)
+    patient_thread = Threaded_Patient(U_patients_env,Non_U_patients_env,DEAD_U_patients_env)
 
     ambulance_thread.start()
     patient_thread.start()
