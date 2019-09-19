@@ -16,12 +16,12 @@ from EvacuationArea.inPatient import *
 
 
 
-def thread_function(ambulances,patients):
+def thread_function(ambulances,u_p,non_u_p,dead_p):
     currentTime = 0
     while True:
         time.sleep(1)
         currentTime += 1
-        Evan.random_evacuation({},ambulances,patients)
+        Evan.random_evacuation({},ambulances,u_p,non_u_p,dead_p)
 
 if __name__ == "__main__":
     als = {
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     ambulance_thread.start()
     patient_thread.start()
 
-    x = threading.Thread(target=thread_function,args=(ambulances,patients))
+    x = threading.Thread(target=thread_function,args=(ambulances,U_patients_env,Non_U_patients_env,DEAD_U_patients_env))
     x.start()
 
 
