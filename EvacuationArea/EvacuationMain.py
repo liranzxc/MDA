@@ -29,7 +29,7 @@ def random_evacuation():
         patient = random.choice(list(filter(lambda d: d['type'] is 'u' or 'd', patients)))
     else:
         patient = random.choice(list(filter(lambda d: d['type'] is 'n', patients)))
-    print("patient %r in ambulance %r" %(patient, ambulance))
+    print("patient %r in ambulance %r left in time %r" %(patient, ambulance, currentTime))
     ambulances.remove(ambulance)
     patients.remove(patient)
     return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
@@ -56,7 +56,7 @@ def fifo():
             if patient['type'] is "n":
                 flag = True
             i += 1
-    print("patient %r in ambulance %r" % (patient, ambulance))
+    print("patient %r in ambulance %r left in time %r" %(patient, ambulance, currentTime))
     ambulances.remove(ambulance)
     patients.remove(patient)
     return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
@@ -81,7 +81,7 @@ def urgent_fifo():
         if patient['type'] is "u":
             flag_patient = True
         j += 1
-    print("patient %r in ambulance %r" % (patient, ambulance))
+    print("patient %r in ambulance %r left in time %r" %(patient, ambulance, currentTime))
     ambulances.remove(ambulance)
     patients.remove(patient)
     return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
@@ -103,14 +103,16 @@ def full_capacity():
                     if patients[count]['type'] is "u":
                         if len(ambulances[j]['u']) < 1:
                             ambulances[j]['u'].append(patient)
-                            print("patient %r in ambulance %r" % (patients[count], ambulances[j]))
+                            print("patient %r in ambulance %r left in time %r" % (patients[count],
+                                                                                  ambulances[j], currentTime))
                             patients[count]['in_ambulance'] = True
                             break
                         continue
                     if patients[count]['type'] is "n":
                         if len(ambulances[j]['n']) < 2:
                             ambulances[j]['n'].append(patient)
-                            print("patient %r in ambulance %r" % (patients[count], ambulances[j]))
+                            print("patient %r in ambulance %r left in time %r" % (patients[count],
+                                                                                  ambulances[j], currentTime))
                             patients[count]['in_ambulance'] = True
                             break
                         continue
@@ -118,7 +120,8 @@ def full_capacity():
                     if patients[count]['type'] is "n":
                         if len(ambulances[j]['n']) < 3:
                             ambulances[j]['n'].append(patient)
-                            print("patient %r in ambulance %r" % (patients[count], ambulances[j]))
+                            print("patient %r in ambulance %r left in time %r" % (patients[count],
+                                                                                  ambulances[j], currentTime))
                             patients[count]['in_ambulance'] = True
                             break
                         continue
@@ -149,13 +152,15 @@ def triage():
         if patient['type'] is "u":
             als_ambulances = list(filter(lambda d: d['type'] is 'ALS', ambulances))
             if len(als_ambulances) != 0:
-                print("patient %r in ambulance %r" % (patient, als_ambulances[0]))
+                print("patient %r in ambulance %r left in time %r" % (patient,
+                                                                      als_ambulances[0], currentTime))
                 ambulances.remove(als_ambulances[0])
                 patients.remove(patient)
                 return_ambulance = ThreadAmbulanceBack(als_ambulances[0], currentTime)
                 return_ambulance.start()
         else:
-            print("patient %r in ambulance %r" % (patient, ambulances[0]))
+            print("patient %r in ambulance %r left in time %r" % (patient,
+                                                                  ambulances[0], currentTime))
             ambulance = ambulances[0]
             ambulances.remove(ambulance)
             patients.remove(patient)
