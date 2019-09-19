@@ -37,6 +37,8 @@ class ThreamentWorker(threading.Thread):
 
 def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
     print("check model")
+
+    selected = {}
     if(Model == 'Random'):
         patients = []
         if(len(U_patients) > 0):
@@ -56,22 +58,41 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
                 Non_U_patients.remove(selected)
             if (selected["type"] == 'd'):
                 DEAD_U_patients.remove(selected)
+        else:
+            print("not patients")
+    elif Model == "FIFO":
+        patients = []
+        if (len(U_patients) > 0):
+            patients += (U_patients[0])
+        if (len(Non_U_patients) > 0):
+            patients += (Non_U_patients[0])
+        if (len(DEAD_U_patients) > 0):
+            patients += (DEAD_U_patients[0])
 
-            channel.queue_declare(queue='Patients_need_evac_queue', durable=True)
+        if (len(patients) > 0):
+            selected = random.choice(patients)
+            print("selectend", selected)
 
-            channel.basic_publish(
-                exchange='',
-                routing_key='Patients_need_evac_queue',
-                body=json.dumps(selected),
-                properties=pika.BasicProperties(
-                    delivery_mode=2,  # make message persistent
-                ))
-            print(" [x] Sent %r" % selected)
-
-
+            if (selected["type"] == 'u'):
+                U_patients.remove(selected)
+            if (selected["type"] == 'n'):
+                Non_U_patients.remove(selected)
+            if (selected["type"] == 'd'):
+                DEAD_U_patients.remove(selected)
         else:
             print("not patients")
 
+    if(selected != {}):
+        channel.queue_declare(queue='Patients_need_evac_queue', durable=True)
+
+        channel.basic_publish(
+            exchange='',
+            routing_key='Patients_need_evac_queue',
+            body=json.dumps(selected),
+            properties=pika.BasicProperties(
+                delivery_mode=2,  # make message persistent
+            ))
+        print(" [x] Sent %r" % selected)
 
 
 if __name__ == "__main__":
