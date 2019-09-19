@@ -3,9 +3,10 @@ import pika
 import time, threading
 import json
 
-#in
 
-class Threaded_worker(threading.Thread):
+#in Ambulance
+
+class Threaded_Ambulance(threading.Thread):
     def callback(self, ch, method, properties, body):
         body = json.loads(body.decode('utf-8')) #decode json
         print(" [x] Received %r" % body)
@@ -27,12 +28,14 @@ class Threaded_worker(threading.Thread):
 
     def run(self):
         print('start consuming')
-        self.channel.start_consuming()
+        while True:
+            self.channel.start_consuming()
+            time.sleep(1)
 
 
 if __name__ == "__main__":
     messages = []
-    td = Threaded_worker(messages)
+    td = Threaded_Ambulance(messages)
     td.setDaemon(False)
     td.start()
     i = 0
