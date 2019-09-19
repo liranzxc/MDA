@@ -39,7 +39,7 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
     print("check model")
 
     selected = {}
-    if(Model == 'Random'):
+    if(Model == 'RANDOM'):
         patients = []
         if(len(U_patients) > 0):
             patients += (U_patients)
@@ -81,6 +81,11 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
                 DEAD_U_patients.remove(selected)
         else:
             print("not patients")
+    elif Model == "URGENT-FIFO":
+        if (len(U_patients) > 0):
+            selected = U_patients[0]
+
+
 
     if(selected != {}):
         channel.queue_declare(queue='Patients_need_evac_queue', durable=True)
@@ -118,6 +123,6 @@ if __name__ == "__main__":
         # print(Non_U_patients)
         # print(DEAD_U_patients)
         time.sleep(TIME_DECISION)
-        ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,"Random",channelAmbulans)
+        ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,"FIFO",channelAmbulans)
 
 

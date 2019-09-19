@@ -20,10 +20,10 @@ class Threaded_worker(threading.Thread):
         self.channel = connection.channel()
         self.channel.queue_declare(
             
-            queue='Ambulance_queue', durable=True)
+            queue='Patients_queue', durable=True)
         print(' [*] Waiting for messages. To exit press CTRL+C')
         self.channel.basic_qos(prefetch_count=1)
-        self.channel.basic_consume(queue='Ambulance_queue', on_message_callback=self.callback)
+        self.channel.basic_consume(queue='Patients_queue', on_message_callback=self.callback)
 
     def run(self):
         print('start consuming')
@@ -39,5 +39,5 @@ if __name__ == "__main__":
     while i < 1000000:
         print("here")
         print(messages)
-        time.sleep(0.5)
+        time.sleep(0.1)
         i += 1
