@@ -8,7 +8,6 @@ if __name__ == "__main__":
     urgent = PatientThread(45, 15, 15, 25, 'u',0.5)
     dead = PatientThread(30, 20, 10, 20, 'd',0)
 
-
     non_urgent.start()
     urgent.start()
     dead.start()
