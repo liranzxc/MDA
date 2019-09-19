@@ -1,6 +1,21 @@
-{
-
-"name" : "liran"
 
 
+
+patient = {
+
+  "id" : number ,
+  "type"  : 'u || n || d',
+  "tZero" : time ,
+  'probability' : number ,
+  "TDelta" : time ,
+
+
+}
+
+Ambulans = {
+  "id" : "number" ,
+  "type" : ('ALS' | 'BLS'),
+    "tZero" : time,
+    "tDelta" : time,
+    "timeOut": time,
 }
