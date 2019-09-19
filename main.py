@@ -14,6 +14,16 @@ from EvacuationArea.inAmbulance import *
 from EvacuationArea.inPatient import *
 
 
+value = 0
+def read_value():
+    global value
+    print "Read value is: " + str(value)
+
+def increment_value():
+    global value
+    time.sleep(1)
+    print "Value before incrementing: " + str(value)
+    value +=1
 
 
 def thread_function(ambulances,u_p,non_u_p,dead_p):
