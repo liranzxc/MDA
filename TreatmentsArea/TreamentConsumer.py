@@ -160,7 +160,7 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
             DEAD_U_patients.remove(selected)
         else:
             selected = {}
-        print("do nothing")
+            print("do nothing")
 
         UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,2)
 
@@ -193,12 +193,9 @@ if __name__ == "__main__":
     td.setDaemon(False)
     td.start()
 
-    TIME_DECISION = 5
+    TIME_DECISION = 1
     i = 0
     while True:
-        # print(U_patients)
-        # print(Non_U_patients)
-        # print(DEAD_U_patients)
         time.sleep(TIME_DECISION)
         ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,"TRIAGE-PRI",channelAmbulans)
 
