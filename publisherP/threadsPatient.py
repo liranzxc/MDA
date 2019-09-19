@@ -53,9 +53,7 @@ class PatientThread(Thread):
             # Changing patient Details
             self.patient['id'] = str(uuid.uuid1())
             self.patient['type'] = self.patient_type
-            self.patient['tZero'] = self.t_zero
-            print(self.probability_from)
-            print(self.probability_to)
+            self.patient['tZero'] = 0
             self.patient['probability'] = random.randint(self.probability_from, self.probability_to)
             time_to_send = (random.randint(self.ran_from, self.ran_to) / 10)
             sleep(time_to_send)
