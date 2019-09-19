@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b4364b4-9ea0-423e-8b15-00457af4a86d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/TreatmentsArea/TreamentConsumer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TreatmentsArea/publisher_liran_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/model.json" beforeDir="false" afterPath="$PROJECT_DIR$/shared/model.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/publisher.py" beforeDir="false" afterPath="$PROJECT_DIR$/shared/publisher.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,16 +20,22 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1QoxJuumzi4w4o5cxZu9Coq6gj9" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/shared" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/TreatmentsArea" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/TreatmentsArea" />
       <recent name="$PROJECT_DIR$/shared" />
     </key>
   </component>
@@ -58,7 +64,7 @@
       <workItem from="1568450682950" duration="1399000" />
       <workItem from="1568453748741" duration="7000" />
       <workItem from="1568453795768" duration="18000" />
-      <workItem from="1568890259114" duration="1835000" />
+      <workItem from="1568890259114" duration="6043000" />
     </task>
     <task id="LOCAL-00001" summary="image">
       <created>1568890569423</created>
@@ -67,7 +73,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568890569423</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add models">
+      <created>1568892112582</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1568892112582</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -86,6 +99,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="image" />
-    <option name="LAST_COMMIT_MESSAGE" value="image" />
+    <MESSAGE value="add models" />
+    <option name="LAST_COMMIT_MESSAGE" value="add models" />
   </component>
 </project>
