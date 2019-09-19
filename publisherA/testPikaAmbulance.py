@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 import pika
 import time, threading
-
+import json
 
 class Threaded_worker(threading.Thread):
     def callback(self, ch, method, properties, body):
+        body = json.loads(body.decode('utf-8'))
         print(" [x] Received %r" % body)
         print("append to message array")
         self.messages.append(body)
-        time.sleep(body.count(b'.'))
+        time.sleep(5)
         print(" [x] Done")
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
@@ -36,6 +37,6 @@ if __name__ == "__main__":
     i = 0
     while i < 100000:
         print("here")
-        time.sleep(1)
+        time.sleep(5)
         print(messages)
         i += 1
