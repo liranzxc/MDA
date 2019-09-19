@@ -155,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568922069746</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="liran algo">
+      <created>1568922969756</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1568922969756</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,16 +184,5 @@
     <MESSAGE value="algo" />
     <MESSAGE value="liran algo" />
     <option name="LAST_COMMIT_MESSAGE" value="liran algo" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/TreatmentsArea/TreamentConsumer.py</url>
-          <line>104</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

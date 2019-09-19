@@ -131,7 +131,7 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
                 DEAD_U_patients.remove(selected)
         else:
             print("not patients")
-       #UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,0.5)
+        UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,0.5)
 
     elif Model == "URGENT-FIFO":
         if (len(U_patients) > 0):
@@ -157,7 +157,8 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
             selected = min(Non_U_patients, key=lambda x: x['probability'])
             Non_U_patients.remove(selected)
         else:
-            selected = {}
+            selected = min(DEAD_U_patients, key=lambda x: x['probability'])
+            DEAD_U_patients.remove(selected)
 
         UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,2)
 
@@ -197,6 +198,6 @@ if __name__ == "__main__":
         # print(Non_U_patients)
         # print(DEAD_U_patients)
         time.sleep(TIME_DECISION)
-        ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,"FIFO",channelAmbulans)
+        ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,"TRIAGE-PRI",channelAmbulans)
 
 
