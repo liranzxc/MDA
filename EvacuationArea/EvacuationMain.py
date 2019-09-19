@@ -131,12 +131,18 @@ def full_capacity():
             if len(ambulance['u']) == 1 and len(ambulance['n']) == 2:
                 send_ambulances.append(ambulance)
                 for i in range(0, len(ambulance['n'])):
+                    print("patient %r in ambulance %r left in time %r" % (
+                        list(filter(lambda d: d['id'] is ambulance['n'][i], patients)), ambulance, currentTime))
                     patients.remove(ambulance['n'][i])
+                print("patient %r in ambulance %r left in time %r" % (
+                    list(filter(lambda d: d['id'] is ambulance['u'][0], patients)), ambulance, currentTime))
                 patients.remove(ambulance['u'][0])
         else:
             if len(ambulance['n']) == 3:
                 send_ambulances.append(ambulance)
             for i in range(0, len(ambulance['n'])):
+                print("patient %r in ambulance %r left in time %r" % (
+                    list(filter(lambda d: d['id'] is ambulance['n'][i], patients)), ambulance, currentTime))
                 patients.remove(ambulance['n'][i])
         ambulances.remove(ambulance)
         return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
