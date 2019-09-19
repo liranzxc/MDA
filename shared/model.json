@@ -8,6 +8,7 @@ patient = {
   "tZero" : time ,
   'probability' : number ,
   "TDelta" : time ,
+  "TimeOut" : time
 
 
 }

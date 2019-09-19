@@ -26,10 +26,11 @@ bls = {
 initial_time = 0
 max_als = 12
 max_bls = 12
-refresh_time = 3
+refresh_time_als = 3
+refresh_time_bls = 3
 
-als_thread = MyThread(refresh_time, als, max_als, initial_time)
-bls_thread = MyThread(refresh_time, bls, max_bls, initial_time)
+als_thread = MyThread(refresh_time_als, als, max_als, initial_time)
+bls_thread = MyThread(refresh_time_bls, bls, max_bls, initial_time)
 
 als_thread.start()
 bls_thread.start()
