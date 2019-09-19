@@ -8,13 +8,13 @@ from time import sleep
 
 class PatientThread(Thread):
 
-    def __init__(self, max_patient, t_zero, ran_from, ran_to, patient_type,prob):
+    def __init__(self, max_patient, t_zero, ran_from, ran_to, patient_type,probability):
         ''' Constructor. '''
         Thread.__init__(self)
         self.max_patient = max_patient
         self.t_zero = t_zero
-        self.ran_from = ran_from
-        self.ran_to = ran_to
+        self.ran_from = ran_from #random from number
+        self.ran_to = ran_to #random to number
         self.patient_type = patient_type
         self.current_patients = 0
         self.patient = {
@@ -24,7 +24,7 @@ class PatientThread(Thread):
           'probability' : 0 ,
           "cur_time" : 0 ,
         }
-        self.probability = prob
+        self.probability = probability #Patient's chance to live
         self.current_time = t_zero
         self.channel = ''
 
@@ -52,7 +52,7 @@ class PatientThread(Thread):
             self.patient['id'] = str(uuid.uuid1())
             self.patient['type'] = self.patient_type
             self.patient['tZero'] = self.t_zero
-            self.patient['probability'] = self.probability
+            self.patient['probability'] = random.choice(self.probability)
             time_to_send = (random.randint(self.ran_from, self.ran_to) / 10)
             sleep(time_to_send)
             self.current_time = self.current_time + time_to_send
