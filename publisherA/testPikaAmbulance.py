@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 import pika
 import time, threading
-
+import json
 
 class Threaded_worker(threading.Thread):
     def callback(self, ch, method, properties, body):
+        body = json.loads(body.decode('utf-8'))
         print(" [x] Received %r" % body)
         print("append to message array")
         self.messages.append(body)
-        time.sleep(body.count(b'.'))
+        time.sleep(5)
         print(" [x] Done")
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
@@ -18,10 +19,10 @@ class Threaded_worker(threading.Thread):
         connection = pika.BlockingConnection(
             pika.ConnectionParameters(host='192.168.43.136'))
         self.channel = connection.channel()
-        self.channel.queue_declare(queue='task_queue', durable=True)
+        self.channel.queue_declare(queue='Ambulance_queue', durable=True)
         print(' [*] Waiting for messages. To exit press CTRL+C')
         self.channel.basic_qos(prefetch_count=1)
-        self.channel.basic_consume(queue='task_queue', on_message_callback=self.callback)
+        self.channel.basic_consume(queue='Ambulance_queue', on_message_callback=self.callback)
 
     def run(self):
         print('start consuming')
