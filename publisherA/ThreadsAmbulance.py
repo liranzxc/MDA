@@ -4,13 +4,6 @@ import json
 import time
 
 
-connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='192.168.43.136'))
-channel = connection.channel()
-
-channel.queue_declare(queue='task_queue', durable=True)
-
-
 class MyThread(Thread):
     def __init__(self, refresh_time, ambulance, max_ambulances):
         ''' Constructor. '''
@@ -22,6 +15,12 @@ class MyThread(Thread):
         self.current_ambulances = 0
 
     def run(self):
+        connection = pika.BlockingConnection(
+            pika.ConnectionParameters(host='192.168.43.136'))
+        channel = connection.channel()
+
+        channel.queue_declare(queue='task_queue', durable=True)
+
         while self.current_ambulances < self.max_ambulances:
             channel.basic_publish(
                 exchange='',
