@@ -24,7 +24,7 @@ import random, pika, operator
 
 
 class Evan:
-    def random_evacuation(self,ambulances,patients):
+    def random_evacuation(self,ambulances,patients,currentTime):
         ambulance = random.choice(ambulances)
         if ambulance['type'] is "ALS":
             patient = random.choice(list(filter(lambda d: d['type'] is 'u' or 'd', patients)))

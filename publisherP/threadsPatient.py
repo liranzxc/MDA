@@ -5,7 +5,6 @@ import json
 import random
 from time import sleep
 
-
 class PatientThread(Thread):
 
     def __init__(self, max_patient, t_zero, ran_from, ran_to, patient_type, probability_from, probability_to):

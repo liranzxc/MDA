@@ -29,14 +29,13 @@ def increment_time():
 
 
 def thread_function(ambulances,u_p,non_u_p,dead_p):
-    currentTime = 0
+    currentTime = read_value()
     while True:
         time.sleep(1)
-        currentTime += 1
-        Evan.random_evacuation({},ambulances,u_p,non_u_p,dead_p)
+        Evan.random_evacuation({},ambulances,u_p,non_u_p,dead_p,currentTime)
 
 if __name__ == "__main__":
-    incr_thread = threading.Thread(target=increment_value)
+    incr_thread = threading.Thread(target=increment_time)
     incr_thread.start()
 
     als = {
