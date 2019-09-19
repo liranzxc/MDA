@@ -4,7 +4,7 @@ import sys
 import json
 import time
 
-from PublisherA.ThreadsAmbulance import run
+from ThreadsAmbulance import MyThread
 
 als = {
     "id": "0",
