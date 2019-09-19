@@ -34,6 +34,48 @@ class ThreamentWorker(threading.Thread):
         self.channel.start_consuming()
 
 
+def Cost(item , updateP):
+
+    P = updateP*0.05
+    item["probability"] -= P
+    if (item["probability"] < 0):
+        item["probability"] = 0
+
+    if item["probability"] < 0.14:
+        item["type"] ='d'
+    elif item["probability"] < 0.64:
+        item["type"] ='u'
+
+    return item
+
+
+def UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,minuts):
+
+    updateprobability = 0.05*minuts
+
+    Non_U_patients = list(map(lambda item : Cost(item,updateprobability),Non_U_patients))
+    U_patients = list(map(lambda item : Cost(item,updateprobability),U_patients))
+    DEAD_U_patients = list(map(lambda item : Cost(item,updateprobability),DEAD_U_patients))
+
+
+    NON_U_Need_To_Append_TO_U = list(filter(lambda item : item["type"] == 'u' ,Non_U_patients))
+
+    Non_U_patients = [x for x in  Non_U_patients if x not in NON_U_Need_To_Append_TO_U] #remove
+
+    U_patients.extend(NON_U_Need_To_Append_TO_U) # append
+
+
+    _U_Need_To_Append_TO_D = list(filter(lambda item : item["type"] == 'd' ,U_patients))
+
+    DEAD_U_patients = [x for x in  DEAD_U_patients if x not in _U_Need_To_Append_TO_D] # remove
+
+    DEAD_U_patients.extend(_U_Need_To_Append_TO_D) # append
+
+
+
+
+
+
 
 def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
     print("check model")
@@ -96,23 +138,17 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
 
     elif Model == "TRIAGE-PRI":
 
-        U_patients_Min = { "probability" : 1.0}
-        Non_U_patients_Min = { "probability" : 1.0}
-
         if (len(U_patients) > 0 ):
-            U_patients_Min = min(U_patients, key=lambda x: x['probability'])
-        if(len(Non_U_patients) > 0 ):
-            Non_U_patients_Min = min(Non_U_patients, key=lambda x: x['probability'])
-
-        if(U_patients_Min["probability"] < Non_U_patients_Min["probability"]):
-            selected = U_patients_Min
+            selected = min(U_patients, key=lambda x: x['probability'])
             U_patients.remove(selected)
-        else:
-            selected = Non_U_patients_Min
-            Non_U_patients.remove(selected)
 
-        if(selected["probability"] == 1.0):
-            selected == {}
+        elif(len(Non_U_patients) > 0 ):
+            selected = min(Non_U_patients, key=lambda x: x['probability'])
+            Non_U_patients.remove(selected)
+        else:
+            selected = {}
+
+        UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,1)
 
     if(selected != {}):
         channel.queue_declare(queue='Patients_need_evac_queue', durable=True)
