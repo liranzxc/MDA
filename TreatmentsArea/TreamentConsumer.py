@@ -103,17 +103,25 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
         else:
             print("not patients")
     elif Model == "FIFO":
+
+        print(U_patients)
+        print(Non_U_patients)
+        print(DEAD_U_patients)
+
         patients = []
         if (len(U_patients) > 0):
-            patients += (U_patients[0])
+            patients.append(U_patients[0])
         if (len(Non_U_patients) > 0):
-            patients += (Non_U_patients[0])
+            patients.append(Non_U_patients[0])
         if (len(DEAD_U_patients) > 0):
-            patients += (DEAD_U_patients[0])
+            patients.append(DEAD_U_patients[0])
 
         if (len(patients) > 0):
+            print("**********")
+            print(patients)
+            print("**********")
+
             selected = random.choice(patients)
-            print("selectend", selected)
 
             if (selected["type"] == 'u'):
                 U_patients.remove(selected)
@@ -123,6 +131,8 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
                 DEAD_U_patients.remove(selected)
         else:
             print("not patients")
+       #UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,0.5)
+
     elif Model == "URGENT-FIFO":
         if (len(U_patients) > 0):
             selected = U_patients[0]
@@ -135,6 +145,7 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
         if (len(DEAD_U_patients) > 0):
             selected = DEAD_U_patients[0]
             DEAD_U_patients.remove(selected)
+        UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,1)
 
     elif Model == "TRIAGE-PRI":
 
@@ -148,7 +159,7 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
         else:
             selected = {}
 
-        UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,1)
+        UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,2)
 
     if(selected != {}):
         channel.queue_declare(queue='Patients_need_evac_queue', durable=True)
@@ -186,6 +197,6 @@ if __name__ == "__main__":
         # print(Non_U_patients)
         # print(DEAD_U_patients)
         time.sleep(TIME_DECISION)
-        ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,"TRIAGE-PRI",channelAmbulans)
+        ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,"FIFO",channelAmbulans)
 
 
