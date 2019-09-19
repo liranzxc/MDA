@@ -148,7 +148,6 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
         UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,1)
 
     elif Model == "TRIAGE-PRI":
-
         if (len(U_patients) > 0 ):
             selected = min(U_patients, key=lambda x: x['probability'])
             U_patients.remove(selected)
@@ -156,9 +155,12 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
         elif(len(Non_U_patients) > 0 ):
             selected = min(Non_U_patients, key=lambda x: x['probability'])
             Non_U_patients.remove(selected)
-        else:
+        elif (len(DEAD_U_patients) > 0):
             selected = min(DEAD_U_patients, key=lambda x: x['probability'])
             DEAD_U_patients.remove(selected)
+        else:
+            selected = {}
+        print("do nothing")
 
         UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,2)
 

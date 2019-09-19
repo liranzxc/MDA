@@ -53,15 +53,13 @@ class PatientThread(Thread):
             # Changing patient Details
             self.patient['id'] = str(uuid.uuid1())
             self.patient['type'] = self.patient_type
-            self.patient['tZero'] = self.t_zero
-            print(self.probability_from)
-            print(self.probability_to)
+            self.patient['tZero'] = 0
             self.patient['probability'] = random.randint(self.probability_from, self.probability_to)
             time_to_send = (random.randint(self.ran_from, self.ran_to) / 10)
             sleep(time_to_send)
             self.current_time = self.current_time + time_to_send
             self.patient['cur_time'] = self.current_time
-            # self.publish_patient(json.dumps(self.patient))
+            self.publish_patient(json.dumps(self.patient))
             print(json.dumps(self.patient))
             self.current_patients += 1
         connection.close()
