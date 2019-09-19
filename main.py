@@ -21,7 +21,7 @@ def thread_function(ambulances,patients):
     while True:
         time.sleep(1)
         currentTime += 1
-        Evan.random_evacuation(ambulances,patients)
+        Evan.random_evacuation({},ambulances,patients)
 
 if __name__ == "__main__":
     als = {
