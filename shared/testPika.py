@@ -16,7 +16,7 @@ class Threaded_worker(threading.Thread):
         threading.Thread.__init__(self)
         self.messages = messages
         connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='localhost'))
+            pika.ConnectionParameters(host='192.168.43.136'))
         self.channel = connection.channel()
         self.channel.queue_declare(queue='task_queue', durable=True)
         print(' [*] Waiting for messages. To exit press CTRL+C')
