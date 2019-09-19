@@ -14,16 +14,18 @@ from EvacuationArea.inAmbulance import *
 from EvacuationArea.inPatient import *
 
 
-value = 0
-def read_value():
-    global value
-    print "Read value is: " + str(value)
+timer = 0
 
-def increment_value():
-    global value
-    time.sleep(1)
-    print "Value before incrementing: " + str(value)
-    value +=1
+def read_value():
+    global timer
+    return timer
+
+def increment_time():
+    global timer
+    while True:
+        time.sleep(1)
+        print("Value before incrementing: " + str(timer))
+        timer +=1
 
 
 def thread_function(ambulances,u_p,non_u_p,dead_p):
@@ -34,6 +36,9 @@ def thread_function(ambulances,u_p,non_u_p,dead_p):
         Evan.random_evacuation({},ambulances,u_p,non_u_p,dead_p)
 
 if __name__ == "__main__":
+    incr_thread = threading.Thread(target=increment_value)
+    incr_thread.start()
+
     als = {
         "id": "generate later",
         "type": "ALS",
