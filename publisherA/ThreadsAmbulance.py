@@ -27,7 +27,7 @@ class MyThread(Thread):
         while self.current_ambulances < self.max_ambulances:
             # Changing Ambulance Details
             self.ambulance['id'] = str(uuid.uuid1())
-            self.ambulance['tCurrent'] = round(self.initial_time - time.time(), 2)
+            self.ambulance['tCurrent'] = round(time.time() - self.initial_time, 2)
 
             channel.basic_publish(
                 exchange='',
