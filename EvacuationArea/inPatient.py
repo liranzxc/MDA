@@ -9,13 +9,23 @@ class Threaded_Patient(threading.Thread):
         body = json.loads(body.decode('utf-8')) # decode json
         print(" [x] Received %r" % body)
         print("append to message array")
-        self.messages.append(body)
+        body = json.loads(body.decode('utf-8'))  # decode json
+        if (body["type"] == 'u'):
+            self.u_p.append(body)
+        if (body["type"] == 'n'):
+            self.non_u_p.append(body)
+        if (body["type"] == 'd'):
+            self.dead_p.append(body)
+
         print(" [x] Done")
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
-    def __init__(self, messages):
+    def __init__(self, u_p,non_u_p ,dead_p):
         threading.Thread.__init__(self)
-        self.messages = messages
+        self.u_p = u_p
+        self.non_u_p = non_u_p
+        self.dead_p = dead_p
+
         connection = pika.BlockingConnection(
             pika.ConnectionParameters(host='192.168.43.136'))
         self.channel = connection.channel()
@@ -29,16 +39,16 @@ class Threaded_Patient(threading.Thread):
         while True:
             self.channel.start_consuming()
             time.sleep(1)
-
-
-if __name__ == "__main__":
-    messages = []
-    td = Threaded_Patient(messages)
-    td.setDaemon(False)
-    td.start()
-    i = 0
-    while i < 1000000:
-        print("here")
-        print(messages)
-        time.sleep(0.5)
-        i += 1
+#
+#
+# if __name__ == "__main__":
+#     messages = []
+#     td = Threaded_Patient(messages)
+#     td.setDaemon(False)
+#     td.start()
+#     i = 0
+#     while i < 1000000:
+#         print("here")
+#         print(messages)
+#         time.sleep(0.5)
+#         i += 1
