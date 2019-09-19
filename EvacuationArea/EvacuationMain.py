@@ -4,6 +4,11 @@ import random, pika, operator
 # from inAmbulance import Threaded_Ambulance
 # from inPatient import Threaded_Patient
 from EvacuationArea.ThreadAmbulanceBack import *
+
+
+from EvacuationArea.ThreadAmbulanceBack import *
+from TreatmentsArea.TreamentConsumer import *
+
 # from TreatmentConsumer import UpdateProbability
 #
 # ambulances = []
@@ -55,22 +60,30 @@ class Evan:
 
 
     def fifo(self,ambulances,u_p,non_u_p,dead_p, currentTime):
-        ambulance = ambulances[0]
-        if ambulance['type'] is "ALS":
-            if u_p:
-                patient = u_p[0]
-        else:
-            if non_u_p:
-                patient = non_u_p[0]
-        print("patient %r in ambulance %r left in time %r" %(patient, ambulance, currentTime))
-        ambulances.remove(ambulance)
-        try:
-            non_u_p.remove(patient)
-            u_p.remove(patient)
-        except:
-            print("maybe not deleted")
-        return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
-        return_ambulance.start()
+        if ambulances:
+            ambulance = ambulances[0]
+            patient = None
+            if ambulance['type'] is "ALS":
+                if u_p:
+                    patient = u_p[0]
+            else:
+                if non_u_p:
+                    patient = non_u_p[0]
+
+            if patient is not None:
+
+                print("patient %r in ambulance %r left in time %r" %(patient, ambulance, currentTime))
+
+                ambulances.remove(ambulance)
+
+                if (patient["type"] == 'u'):
+                    u_p.remove(patient)
+                if (patient["type"] == 'n'):
+                    non_u_p.remove(patient)
+
+                return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
+                return_ambulance.start()
+
         UpdateProbability(u_p, non_u_p, dead_p, 0.5)
 
     def urgent_fifo(self,ambulances,u_p,non_u_p,dead_p, currentTime):

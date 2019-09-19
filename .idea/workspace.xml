@@ -4,7 +4,6 @@
     <list default="true" id="5b4364b4-9ea0-423e-8b15-00457af4a86d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EvacuationArea/EvacuationMain.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvacuationArea/EvacuationMain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EvacuationArea/ThreadAmbulanceBack.py" beforeDir="false" afterPath="$PROJECT_DIR$/EvacuationArea/ThreadAmbulanceBack.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,7 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="timer" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -258,7 +257,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568933861193</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="liran algo">
+      <created>1568935772938</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1568935772938</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

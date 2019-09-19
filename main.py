@@ -113,7 +113,7 @@ if __name__ == "__main__":
     i = 0
     while True:
         time.sleep(TIME_DECISION)
-        ModelCheck(U_patients, Non_U_patients, DEAD_U_patients, "TRIAGE-PRI", channelAmbulans)
+        ModelCheck(U_patients, Non_U_patients, DEAD_U_patients, "RANDOM", channelAmbulans)
 
 
 
