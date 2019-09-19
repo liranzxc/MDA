@@ -1,19 +1,21 @@
 #!/usr/bin/env python
 import pika
 import sys
+import json
 
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='192.168.43.136'))
+    pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.queue_declare(queue='task_queue', durable=True)
+channel.queue_declare(queue='Patients_queue', durable=True)
 
-message = ' '.join(sys.argv[1:]) or "Hello liran World!"
+message = {}
+message["type"] = "u"
 
 channel.basic_publish(
     exchange='',
-    routing_key='task_queue',
-    body=message,
+    routing_key='Patients_queue',
+    body=json.dumps(message),
     properties=pika.BasicProperties(
         delivery_mode=2,  # make message persistent
     ))
