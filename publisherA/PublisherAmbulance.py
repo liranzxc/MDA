@@ -23,8 +23,13 @@ bls = {
     "timeOut": 100000
 }
 
-als_thread = MyThread(3, als, 12, 0)
-bls_thread = MyThread(3, bls, 12, 0)
+initial_time = 0
+max_als = 12
+max_bls = 12
+refresh_time = 3
+
+als_thread = MyThread(refresh_time, als, max_als, initial_time)
+bls_thread = MyThread(refresh_time, bls, max_bls, initial_time)
 
 als_thread.start()
 bls_thread.start()
