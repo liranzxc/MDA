@@ -9,7 +9,6 @@ class ThreamentWorker(threading.Thread):
         print(" [x] Received %r" % body)
         print("append to message array")
         body = json.loads(body.decode('utf-8')) # decode json
-        print(body)
         if(body["type"] == 'u'):
             self.u_p.append(body)
         if (body["type"] == 'n'):
@@ -19,14 +18,12 @@ class ThreamentWorker(threading.Thread):
 
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
-    def __init__(self, u_p,non_u_p,dead_p):
+    def __init__(self, u_p,non_u_p,dead_p,channel):
         threading.Thread.__init__(self)
         self.u_p = u_p
         self.non_u_p = non_u_p
         self.dead_p = dead_p
-        connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='localhost'))
-        self.channel = connection.channel()
+        self.channel = channel
         self.channel.queue_declare(queue='Patients_queue', durable=True)
         print(' [*] Waiting for patients. To exit press CTRL+C')
         self.channel.basic_qos(prefetch_count=1)
@@ -38,28 +35,68 @@ class ThreamentWorker(threading.Thread):
 
 
 
-def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model):
+def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
+    print("check model")
     if(Model == 'Random'):
+        patients = []
+        if(len(U_patients) > 0):
+            patients += (U_patients)
+        if(len(Non_U_patients) > 0):
+            patients += (Non_U_patients)
+        if(len(DEAD_U_patients) > 0):
+            patients += (DEAD_U_patients)
 
+        if(len(patients) > 0):
+            selected = random.choice(patients)
+            print("selectend",selected)
+
+            if (selected["type"] == 'u'):
+                U_patients.remove(selected)
+            if (selected["type"] == 'n'):
+                Non_U_patients.remove(selected)
+            if (selected["type"] == 'd'):
+                DEAD_U_patients.remove(selected)
+
+            channel.queue_declare(queue='Patients_need_evac_queue', durable=True)
+
+            channel.basic_publish(
+                exchange='',
+                routing_key='Patients_need_evac_queue',
+                body=json.dumps(selected),
+                properties=pika.BasicProperties(
+                    delivery_mode=2,  # make message persistent
+                ))
+            print(" [x] Sent %r" % selected)
+
+
+        else:
+            print("not patients")
 
 
 
 if __name__ == "__main__":
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(host='localhost'))
+    connection2 = pika.BlockingConnection(
+        pika.ConnectionParameters(host='localhost'))
+    channel = connection.channel()
+    channelAmbulans = connection2.channel()
+
     U_patients = []
     Non_U_patients = []
     DEAD_U_patients = []
 
-    td = ThreamentWorker(U_patients,Non_U_patients,DEAD_U_patients)
+    td = ThreamentWorker(U_patients,Non_U_patients,DEAD_U_patients,channel)
     td.setDaemon(False)
     td.start()
 
-    TIME_DECISION = 1
+    TIME_DECISION = 5
     i = 0
     while True:
-        print(U_patients)
-        print(Non_U_patients)
-        print(DEAD_U_patients)
+        # print(U_patients)
+        # print(Non_U_patients)
+        # print(DEAD_U_patients)
         time.sleep(TIME_DECISION)
-
+        ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,"Random",channelAmbulans)
 
 
