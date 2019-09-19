@@ -18,10 +18,10 @@ class Threaded_worker(threading.Thread):
         connection = pika.BlockingConnection(
             pika.ConnectionParameters(host='192.168.43.136'))
         self.channel = connection.channel()
-        self.channel.queue_declare(queue='task_queue', durable=True)
+        self.channel.queue_declare(queue='Ambulance_queue', durable=True)
         print(' [*] Waiting for messages. To exit press CTRL+C')
         self.channel.basic_qos(prefetch_count=1)
-        self.channel.basic_consume(queue='task_queue', on_message_callback=self.callback)
+        self.channel.basic_consume(queue='Ambulance_queue', on_message_callback=self.callback)
 
     def run(self):
         print('start consuming')
@@ -36,6 +36,6 @@ if __name__ == "__main__":
     i = 0
     while i < 100000:
         print("here")
-        time.sleep(5)
+        time.sleep(1)
         print(messages)
         i += 1

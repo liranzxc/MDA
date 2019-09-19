@@ -17,21 +17,17 @@ als = {
 
 bls = {
     "id": "number",
-    "type": "ALS",
+    "type": "BLS",
     "tZero": 0,
-    "tDelta": 0,
+    "tCurrent": 0,
     "timeOut": 0
 }
 
-connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='192.168.43.136'))
-channel = connection.channel()
+als_thread = MyThread(3, als, 12, time.time())
+bls_thread = MyThread(3, bls, 12, time.time())
 
-channel.queue_declare(queue='task_queue', durable=True)
+als_thread.start()
+bls_thread.start()
 
-
-als_thread = MyThread(1, als, 12)
-bls_thread = MyThread(1, als, 12)
-
-# print(" [x] Sent %r" % message)
-connection.close()
+als_thread.join()
+bls_thread.join()
