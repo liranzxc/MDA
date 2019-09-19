@@ -36,6 +36,6 @@ if __name__ == "__main__":
     i = 0
     while i < 100000:
         print("here")
-        time.sleep(1)
+        time.sleep(3)
         print(messages)
         i += 1

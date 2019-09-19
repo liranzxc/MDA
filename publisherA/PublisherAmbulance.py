@@ -8,26 +8,23 @@ import time
 from ThreadsAmbulance import MyThread
 
 als = {
-    "id": "0",
+    "id": "generate later",
     "type": "ALS",
     "tZero": 0,
-    "tDelta": 0,
-    "timeOut": 0
+    "tCurrent": 0,
+    "timeOut": 100000
 }
 
 bls = {
-    "id": "number",
+    "id": "generate later",
     "type": "BLS",
     "tZero": 0,
     "tCurrent": 0,
-    "timeOut": 0
+    "timeOut": 100000
 }
 
-als_thread = MyThread(3, als, 12, time.time())
-bls_thread = MyThread(3, bls, 12, time.time())
+als_thread = MyThread(3, als, 12, 0)
+bls_thread = MyThread(3, bls, 12, 0)
 
 als_thread.start()
 bls_thread.start()
-
-als_thread.join()
-bls_thread.join()
