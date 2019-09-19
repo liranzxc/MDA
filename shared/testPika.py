@@ -16,9 +16,11 @@ class Threaded_worker(threading.Thread):
         threading.Thread.__init__(self)
         self.messages = messages
         connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='192.168.43.136'))
+            pika.ConnectionParameters(host='localhost'))
         self.channel = connection.channel()
-        self.channel.queue_declare(queue='Ambulance_queue', durable=True)
+        self.channel.queue_declare(
+            
+            queue='Ambulance_queue', durable=True)
         print(' [*] Waiting for messages. To exit press CTRL+C')
         self.channel.basic_qos(prefetch_count=1)
         self.channel.basic_consume(queue='Ambulance_queue', on_message_callback=self.callback)
@@ -34,8 +36,8 @@ if __name__ == "__main__":
     td.setDaemon(False)
     td.start()
     i = 0
-    while i < 100000:
+    while i < 1000000:
         print("here")
-        time.sleep(1)
         print(messages)
+        time.sleep(0.5)
         i += 1
