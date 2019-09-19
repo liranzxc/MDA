@@ -3,7 +3,7 @@ import random, pika, operator
 
 # from inAmbulance import Threaded_Ambulance
 # from inPatient import Threaded_Patient
-# from ThreadAmbulanceBack import ThreadAmbulanceBack
+#from ThreadAmbulanceBack import ThreadAmbulanceBack
 # from TreatmentConsumer import UpdateProbability
 #
 # ambulances = []
@@ -24,8 +24,9 @@ import random, pika, operator
 
 
 class Evan:
-    patient = None
     def random_evacuation(self,ambulances,u_p,non_u_p,dead_p,currentTime):
+        patient = None
+
         if ambulances:
             ambulance = random.choice(ambulances)
             if ambulance['type'] is "ALS":

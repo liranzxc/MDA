@@ -12,6 +12,7 @@ from EvacuationArea.EvacuationMain import Evan
 
 from EvacuationArea.inAmbulance import *
 from EvacuationArea.inPatient import *
+from EvacuationArea.ThreadAmbulanceBack import ThreadAmbulanceBack
 
 
 timer = 0
