@@ -12,6 +12,9 @@ als = {
     "type": "ALS",
     "tZero": 0,
     "tCurrent": 0,
+    "u": [],
+    "d": [],
+    "n": [],
     "timeOut": 100000
 }
 
@@ -20,6 +23,7 @@ bls = {
     "type": "BLS",
     "tZero": 0,
     "tCurrent": 0,
+    "n": [],
     "timeOut": 100000
 }
 

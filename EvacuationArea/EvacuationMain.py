@@ -24,6 +24,7 @@ import random, pika, operator
 
 
 class Evan:
+    patient = None
     def random_evacuation(self,ambulances,u_p,non_u_p,dead_p,currentTime):
         if ambulances:
             ambulance = random.choice(ambulances)
@@ -39,19 +40,17 @@ class Evan:
                     patient = random.choice(non_u_p)
                     # non_u_p[patient]['leave'] = currentTime
 
-            ambulances.remove(ambulance)
-
-            if (patient["type"] == 'u'):
-                u_p.remove(patient)
-            if (patient["type"] == 'n'):
-                non_u_p.remove(patient)
-            if (patient["type"] == 'd'):
-                dead_p.remove(patient)
-
-
-            return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
-            return_ambulance.start()
-            UpdateProbability(u_p, non_u_p, dead_p, 0)
+            if patient != None:
+                ambulances.remove(ambulance)
+                if (patient["type"] == 'u'):
+                    u_p.remove(patient)
+                if (patient["type"] == 'n'):
+                    non_u_p.remove(patient)
+                if (patient["type"] == 'd'):
+                    dead_p.remove(patient)
+                return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
+                return_ambulance.start()
+                UpdateProbability(u_p, non_u_p, dead_p, 0)
 
 
     def fifo(self,ambulances,patients):
