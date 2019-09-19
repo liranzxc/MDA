@@ -54,64 +54,42 @@ class Evan:
 #                UpdateProbability(u_p, non_u_p, dead_p, 0)
 
 
-    def fifo(self,ambulances,patients):
-        if ambulances.empty:
-            if patients.empty:
-                i = 0
-                flag = False
-                ambulance = ambulances[0]
-                if ambulance['type'] is "ALS":
-                    while flag is False:
-                        patient = patients[i]
-                        if patient['type'] is "u":
-                            flag = True
-                        i += 1
-                else:
-                    while flag is False:
-                        patient = patients[i]
-                        if patient['type'] is "n":
-                            flag = True
-                        i += 1
-                print("patient %r in ambulance %r left in time %r" %(patient, ambulance, currentTime))
-                ambulances.remove(ambulance)
-                patients.remove(patient)
-                return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
-                return_ambulance.start()
-                UpdateProbability(list(filter(lambda d: d['type'] is 'u', patients)),
-                                  list(filter(lambda d: d['type'] is 'n', patients)),
-                                  list(filter(lambda d: d['type'] is 'd', patients)),
-                                  0.5)
+    def fifo(self,ambulances,u_p,non_u_p,dead_p, currentTime):
+        ambulance = ambulances[0]
+        if ambulance['type'] is "ALS":
+            if u_p:
+                patient = u_p[0]
+        else:
+            if non_u_p:
+                patient = non_u_p[0]
+        print("patient %r in ambulance %r left in time %r" %(patient, ambulance, currentTime))
+        ambulances.remove(ambulance)
+        try:
+            non_u_p.remove(patient)
+            u_p.remove(patient)
+        except:
+            print("maybe not deleted")
+        return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
+        return_ambulance.start()
+        UpdateProbability(u_p, non_u_p, dead_p, 0.5)
 
-    def urgent_fifo(self,ambulances,patients):
-        if ambulances.empty:
-            if patients.empty:
-                i = 0
-                j = 0
-                flag_ambulance = False
-                flag_patient = False
-                while flag_ambulance is False:
+    def urgent_fifo(self,ambulances,u_p,non_u_p,dead_p, currentTime):
+        if ambulances:
+            if u_p:
+                for i in range(0, len(ambulances)):
                     ambulance = ambulances[i]
                     if ambulance['type'] is "ALS":
-                        flag_ambulance = True
-                    i += 1
-                while flag_patient is False:
-                    patient = patients[j]
-                    if patient['type'] is "u":
-                        flag_patient = True
-                    j += 1
-                print("patient %r in ambulance %r left in time %r" %(patient, ambulance, currentTime))
-                ambulances.remove(ambulance)
-                patients.remove(patient)
-                return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
-                return_ambulance.start()
-                UpdateProbability(list(filter(lambda d: d['type'] is 'u', patients)),
-                                  list(filter(lambda d: d['type'] is 'n', patients)),
-                                  list(filter(lambda d: d['type'] is 'd', patients)),
-                                  1)
+                        patient = u_p[0]
+                        print("patient %r in ambulance %r left in time %r" % (patient, ambulance, currentTime))
+                        ambulances.remove(ambulance)
+                        u_p.remove(patient)
+                        return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
+                        return_ambulance.start()
+                        UpdateProbability(u_p, non_u_p, dead_p, 1)
 
 
-    def full_capacity(self,ambulances,patients):
-        if ambulances.empty:
+    def full_capacity(self,ambulances,u_p,non_u_p,dead_p, currentTime):
+        if ambulances:
             if patients.empty:
                 ambulances.sort(key=operator.itemgetter('type'))
                 count = -1
@@ -167,28 +145,25 @@ class Evan:
                                       1)
 
 
-    def triage(self,ambulances,patients):
-        if ambulances.empty:
-            if patients.empty:
-                for patient in patients:
-                    if patient['type'] is "u":
-                        als_ambulances = list(filter(lambda d: d['type'] is 'ALS', ambulances))
-                        if len(als_ambulances) != 0:
-                            print("patient %r in ambulance %r left in time %r" % (patient,
-                                                                                  als_ambulances[0], currentTime))
-                            ambulances.remove(als_ambulances[0])
-                            patients.remove(patient)
-                            return_ambulance = ThreadAmbulanceBack(als_ambulances[0], currentTime)
-                            return_ambulance.start()
-                    else:
+    def triage(self,ambulances,u_p,non_u_p,dead_p, currentTime):
+        if ambulances:
+            if u_p:
+                for patient in u_p:
+                    als_ambulances = list(filter(lambda d: d['type'] is 'ALS', ambulances))
+                    if len(als_ambulances) != 0:
+                        print("patient %r in ambulance %r left in time %r" % (patient,
+                                                                          als_ambulances[0], currentTime))
+                    ambulances.remove(als_ambulances[0])
+                    u_p.remove(patient)
+                    return_ambulance = ThreadAmbulanceBack(als_ambulances[0], currentTime)
+                    return_ambulance.start()
+            elif non_u_p:
+                for patient in non_u_p:
                         print("patient %r in ambulance %r left in time %r" % (patient,
                                                                               ambulances[0], currentTime))
                         ambulance = ambulances[0]
                         ambulances.remove(ambulance)
-                        patients.remove(patient)
+                        non_u_p.remove(patient)
                         return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
                         return_ambulance.start()
-                        UpdateProbability(list(filter(lambda d: d['type'] is 'u', patients)),
-                                          list(filter(lambda d: d['type'] is 'n', patients)),
-                                          list(filter(lambda d: d['type'] is 'd', patients)),
-                                          2)
+                        UpdateProbability(u_p, non_u_p, dead_p, 2)
