@@ -21,6 +21,9 @@ while True:
     currentTime += 1
     random_evacuation()
     fifo()
+    urgent_fifo()
+    full_capacity()
+    triage()
 
 
 def random_evacuation():
@@ -65,6 +68,7 @@ def fifo():
                       list(filter(lambda d: d['type'] is 'n', patients)),
                       list(filter(lambda d: d['type'] is 'd', patients)),
                       0.5)
+
 
 def urgent_fifo():
     i = 0
