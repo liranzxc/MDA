@@ -36,7 +36,7 @@ class MyThread(Thread):
                     delivery_mode=2,  # make message persistent
                 ))
 
-            print("[x] Sent %r %r" % self.ambulance %self.ambulance)
+            ##print("[x] Sent %r %r" % self.ambulance %self.ambulance)
             self.current_ambulances += 1
             time.sleep(self.refresh_time)
             self.current_time += self.refresh_time

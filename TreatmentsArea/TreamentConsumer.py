@@ -6,8 +6,8 @@ import random
 
 class ThreamentWorker(threading.Thread):
     def callback(self, ch, method, properties, body):
-        print(" [x] Received %r" % body)
-        print("append to message array")
+        ##print(" [x] Received %r" % body)
+        ##print("append to message array")
         body = json.loads(body.decode('utf-8')) # decode json
         if(body["type"] == 'u'):
             self.u_p.append(body)
@@ -25,12 +25,12 @@ class ThreamentWorker(threading.Thread):
         self.dead_p = dead_p
         self.channel = channel
         self.channel.queue_declare(queue='Patients_queue', durable=True)
-        print(' [*] Waiting for patients. To exit press CTRL+C')
+        #print(' [*] Waiting for patients. To exit press CTRL+C')
         self.channel.basic_qos(prefetch_count=1)
         self.channel.basic_consume(queue='Patients_queue', on_message_callback=self.callback)
 
     def run(self):
-        print('start consuming')
+        #print('start consuming')
         self.channel.start_consuming()
 
 
@@ -41,9 +41,9 @@ def Cost(item , updateP):
     if (item["probability"] < 0):
         item["probability"] = 0
 
-    if item["probability"] < 0.14:
+    if item["probability"] < 14:
         item["type"] ='d'
-    elif item["probability"] < 0.64:
+    elif item["probability"] < 64:
         item["type"] ='u'
 
     return item
@@ -78,7 +78,7 @@ def UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,minuts):
 
 
 def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
-    print("check model")
+    #print("check model")
 
     selected = {}
     if(Model == 'RANDOM'):
@@ -92,7 +92,7 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
 
         if(len(patients) > 0):
             selected = random.choice(patients)
-            print("selectend",selected)
+            #print("selectend",selected)
 
             if (selected["type"] == 'u'):
                 U_patients.remove(selected)
@@ -102,12 +102,8 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
                 DEAD_U_patients.remove(selected)
         else:
             print("not patients")
+
     elif Model == "FIFO":
-
-        print(U_patients)
-        print(Non_U_patients)
-        print(DEAD_U_patients)
-
         patients = []
         if (len(U_patients) > 0):
             patients.append(U_patients[0])
@@ -117,9 +113,6 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
             patients.append(DEAD_U_patients[0])
 
         if (len(patients) > 0):
-            print("**********")
-            print(patients)
-            print("**********")
 
             selected = random.choice(patients)
 
@@ -160,7 +153,7 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
             DEAD_U_patients.remove(selected)
         else:
             selected = {}
-            print("do nothing")
+            #print("do nothing")
 
         UpdateProbability(U_patients,Non_U_patients,DEAD_U_patients,2)
 
@@ -174,7 +167,7 @@ def ModelCheck(U_patients,Non_U_patients,DEAD_U_patients,Model,channel):
             properties=pika.BasicProperties(
                 delivery_mode=2,  # make message persistent
             ))
-        print(" [x] Sent %r" % selected)
+        ##print(" [x] Sent %r" % selected)
 
 
 if __name__ == "__main__":

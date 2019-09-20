@@ -25,16 +25,15 @@ def increment_time():
     global timer
     while True:
         time.sleep(1)
-        print("Value before incrementing: " + str(timer))
+        #print("Value before incrementing: " + str(timer))
         timer +=1
 
 
 def thread_function(ambulances,u_p,non_u_p,dead_p):
     global timer
-    currentTime = timer
     while True:
         time.sleep(1) # each 1 min  make des
-        Evan.random_evacuation({},ambulances,u_p,non_u_p,dead_p,currentTime)
+        Evan.random_evacuation({},ambulances,u_p,non_u_p,dead_p,timer)
 
 if __name__ == "__main__":
     incr_thread = threading.Thread(target=increment_time)
@@ -100,6 +99,7 @@ if __name__ == "__main__":
     DEAD_U_patients_env = []
 
     ambulance_thread = Threaded_Ambulance(ambulances)
+
     patient_thread = Threaded_Patient(U_patients_env,Non_U_patients_env,DEAD_U_patients_env)
 
     ambulance_thread.start()
@@ -109,11 +109,11 @@ if __name__ == "__main__":
     x.start()
 
 
-    TIME_DECISION = 5
+    TIME_DECISION = 1
     i = 0
     while True:
         time.sleep(TIME_DECISION)
-        ModelCheck(U_patients, Non_U_patients, DEAD_U_patients, "RANDOM", channelAmbulans)
+        ModelCheck(U_patients, Non_U_patients, DEAD_U_patients, "FIFO", channelAmbulans)
 
 
 

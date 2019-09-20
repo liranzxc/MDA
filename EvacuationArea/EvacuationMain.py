@@ -33,7 +33,7 @@ class Evan:
         patient = None
         if ambulances:
             ambulance = random.choice(ambulances)
-            if ambulance['type'] is "ALS":
+            if ambulance['type'] == 'ALS':
                 if u_p and dead_p:
                     patient = random.choice(u_p + dead_p)
                 elif u_p:
@@ -53,7 +53,10 @@ class Evan:
                     non_u_p.remove(patient)
                 if (patient["type"] == 'd'):
                     dead_p.remove(patient)
-                print('patient: %r in ambulance %r left in time %r' % (patient, ambulance, currentTime))
+               # print('patient: %r in ambulance %r left in time %r' % (patient, ambulance, currentTime))
+                patient["LeftTime"] = currentTime
+
+                print(patient)
                 return_ambulance = ThreadAmbulanceBack(ambulance, currentTime)
                 return_ambulance.start()
 #                UpdateProbability(u_p, non_u_p, dead_p, 0)

@@ -17,5 +17,5 @@ channel.basic_publish(
     properties=pika.BasicProperties(
         delivery_mode=2,  # make message persistent
     ))
-print(" [x] Sent %r" % message)
+##print(" [x] Sent %r" % message)
 connection.close()

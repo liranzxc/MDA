@@ -59,6 +59,6 @@ class PatientThread(Thread):
             self.current_time = self.current_time + time_to_send
             self.patient['cur_time'] = self.current_time
             self.publish_patient(json.dumps(self.patient))
-            print(json.dumps(self.patient))
+            #print(json.dumps(self.patient))
             self.current_patients += 1
         connection.close()
